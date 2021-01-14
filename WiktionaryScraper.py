@@ -99,8 +99,7 @@ def wiktionary(lang):
                         continue
                     elif (active or temp_active) and lang not in i['id'] and i.text.lower().rstrip(" 1234567890") not in categories:
                         if not meanings:
-                            print(word)
-                            print(i.text.lower())
+                            print()
                         break
                     elif active and i.text.lower().rstrip(" 1234567890") in categories and \
                             active and i.text.lower().rstrip(" 1234567890") not in word_classes:
@@ -125,7 +124,7 @@ def wiktionary(lang):
                     continue
                 if (meaning_state and i.text.lower() in categories and i.text.lower() not in word_classes):
                     if "definitions" in i.text.lower():
-                        print(i.text.lower())
+                        print()
                     meaning_state = False
                     continue
                 if not meaning_state and i.name == 'ol':
@@ -186,7 +185,7 @@ def wiktionary(lang):
         conj = ['plural', 'third-person', 'singular', 'second-person', 'first-person', 'preterite', 'indicative', 'subjunctive',\
                 'inflection', 'nominative','accusative','singular','neuter','feminine','masculin','gerund','obsolete', 'participle']
         if not meanings:
-            print(word)
+            print()
         if meanings:
             if any(x in meanings[0].lower() for x in conj):
                 continue
@@ -196,7 +195,6 @@ def wiktionary(lang):
                 meanings[j].replace("\"","\\\"")
                 if j > 0 and dd[j] and dd[j-1] and meanings[j-1][:-4] == "<br>":
                     meanings[j] = meanings[j][4:]
-            print(word+';'+ipa+';\"'+''.join(meanings)[:-4]+'\"')
             out_file = open("{0}_anki.txt".format(lang), 'a+',encoding='utf8')
             out_file.write(word+';'+ipa+';\"'+''.join(meanings)[:-4]+'\"'+'\n')
             out_file.close()
