@@ -2,11 +2,10 @@ import requests
 import bs4
 
 def wiktionary(lang):
-    # Scrapes words in "lang" language on Wiktionary for Anki
+    '''Scrapes words in "lang" language on Wiktionary for Anki'''
 
     open("{0}_anki.txt".format(lang), 'w', encoding='utf8').close()
 
-    bad_tags = ['extiw', 'cited-source', 'e-translation', 'hqtoggle']
     categories = ["alternative forms", "pronunciation", "quotations", "synonyms", "derived terms", 'see also',\
                   "etymology", "antonyms", "synonyms", "usage notes", "references", "anagrams", "further reading", "related terms", "conjugation",\
                   "coordinate terms", "descendants",'proper noun', "hyponyms", "participle", "declension",'letter', 'glyph origin', 'compounds']
@@ -32,9 +31,6 @@ def wiktionary(lang):
     in_file.close()
 
     for word in queue:
-
-        if word == 'a':
-            continue
 
         response = requests.get("https://en.wiktionary.org/wiki/{0}#{1}".format(word, lang))
         soup = bs4.BeautifulSoup(response.content, 'html.parser')
@@ -204,5 +200,3 @@ def wiktionary(lang):
             out_file = open("{0}_anki.txt".format(lang), 'a+',encoding='utf8')
             out_file.write(word+';'+ipa+';\"'+''.join(meanings)[:-4]+'\"'+'\n')
             out_file.close()
-
-wiktionary("Chinese")
