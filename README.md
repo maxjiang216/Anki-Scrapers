@@ -1,5 +1,5 @@
 # Anki-Scrapers
-Scrapes dictionaries to create multilingual Anki flashcards
+Scrapes online dictionaries to create multilingual Anki flashcards
 
 Both programs require requests and bs4 to run.
 
